@@ -1,8 +1,13 @@
+import { BrowserRouter } from "react-router-dom";
+import Rout from "./components/Rout";
+
 function App() {
   return (
-    <>
-      <h1 className="text-center bg-slate-600">Hii Testing</h1>
-    </>
+    <BrowserRouter>
+      <div>
+        <Rout />
+      </div>
+    </BrowserRouter>
   );
 }
 
