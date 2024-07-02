@@ -1,14 +1,32 @@
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
+  axios.defaults.withCredentials = true;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log({ email, password });
+    axios
+      .post("http://localhost:5000/auth/login", { email, password })
+      .then((res) => {
+        if (res.data.login) {
+          localStorage.setItem("email", `${email}`);
+          localStorage.setItem("role", `${res.data.role}`);
+
+          alert(res.data.message);
+          navigate("/authentication");
+        } else if (!res.data.login) {
+          alert(res.data.message);
+        }
+      });
   };
 
   return (
