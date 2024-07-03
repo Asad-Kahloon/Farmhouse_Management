@@ -39,4 +39,21 @@ router.post("/login", async (req, res) => {
   }
 });
 
-export { router as AdminRouter };
+const verifyAdmin = (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.json({ message: "Invalid Admin" });
+  } else {
+    jwt.verify(token, process.env.Admin_Key, (err, decoded) => {
+      if (err) {
+        return res.json({ message: "Invalid Token" });
+      } else {
+        req.email = decoded.email;
+        req.role = decoded.role;
+        next();
+      }
+    });
+  }
+};
+
+export { router as AuthRouter, verifyAdmin };
