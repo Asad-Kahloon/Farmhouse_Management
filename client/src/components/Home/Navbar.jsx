@@ -33,10 +33,10 @@ const Navbar = () => {
         }`}
       >
         <li className="py-6 text-2xl hover:font-bold border-b-transition ">
-          Home
+          <Link to="/">Home</Link>
         </li>
         <li className="py-6 text-2xl hover:font-bold border-b-transition ">
-          Login
+          <Link to="login">Login</Link>
         </li>
       </ul>
     </nav>

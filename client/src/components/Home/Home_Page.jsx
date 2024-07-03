@@ -4,7 +4,7 @@ const Home_Page = () => {
       {/* Image Container */}
       <div className="w-full flex justify-center md:w-1/1 p-4">
         <img
-          src="https://via.placeholder.com/400"
+          src="https://images.pexels.com/photos/3209035/pexels-photo-3209035.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt="Example"
           className="w-1/2 rounded-lg shadow-lg"
         />
