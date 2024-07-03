@@ -7,6 +7,7 @@ import RoleCheck from "./Home/RoleCheck";
 import Register from "./Home/Register";
 
 import Admin from "./Admin/Admin";
+import Staff from "./Staff/Staff";
 
 function Rout() {
   return (
@@ -20,6 +21,7 @@ function Rout() {
         </Route>
 
         <Route path="/admin" element={<Admin />} />
+        <Route path="/staff" element={<Staff />} />
       </Routes>
     </>
   );

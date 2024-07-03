@@ -12,7 +12,7 @@ const RoleCheck = () => {
       navigate("/admin");
     } else if (role === "staff") {
       alert("Staff member is logging in");
-      navigate("/login");
+      navigate("/staff");
     } else {
       console.error("No valid role found in local storage");
     }
