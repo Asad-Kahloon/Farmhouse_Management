@@ -19,6 +19,7 @@ const Login = () => {
       .then((res) => {
         if (res.data.login) {
           localStorage.setItem("email", `${email}`);
+          localStorage.setItem("login", true);
           localStorage.setItem("role", `${res.data.role}`);
 
           alert(res.data.message);
