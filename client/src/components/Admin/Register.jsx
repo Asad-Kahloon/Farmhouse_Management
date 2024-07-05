@@ -1,6 +1,6 @@
 // src/RegistrationForm.js
 import { useState } from "react";
-import axios from "axios";
+import { StaffRegister } from "../Functions/StaffRegister";
 import {
   FaUser,
   FaEnvelope,
@@ -8,12 +8,14 @@ import {
   FaLock,
   FaVenusMars,
   FaCamera,
+  FaPhone,
 } from "react-icons/fa";
 import InputMask from "react-input-mask";
 
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
+    phone: "",
     email: "",
     cnic: "",
     password: "",
@@ -24,6 +26,7 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+
     setFormData({
       ...formData,
       [name]: files ? files[0] : value,
@@ -32,35 +35,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const cnicPattern = /^\d{5}-\d{7}-\d{1}$/;
-    if (!cnicPattern.test(formData.cnic)) {
-      alert("Please enter a valid CNIC in the format 12345-1234567-1");
-      return;
-    } else if (formData.password === formData.confirmPassword) {
-      // Create form data object to append fields and file
-      const data = new FormData();
-      for (const key in formData) {
-        data.append(key, formData[key]);
-      }
-
-      axios
-        .post("http://localhost:5000/admin/register", data, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          if (res.data.admin_registered) {
-            alert("Staff Member registered successfully");
-          } else if (res.data.cnic || res.data.email) {
-            alert(res.data.message);
-          }
-        })
-        .catch((err) => console.log(err));
-    } else {
-      alert("Passwords do not match...");
-    }
+    StaffRegister(formData);
   };
 
   return (
@@ -100,6 +75,24 @@ const Register = () => {
                 onChange={handleChange}
                 className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
                 placeholder="Enter your email"
+                required
+              />
+            </div>
+          </div>
+          <div className="mb-4 flex items-center">
+            <label htmlFor="phone" className="block text-gray-700 w-1/4">
+              Phone
+            </label>
+            <div className="flex items-center border-b-2 border-gray-300 py-2 w-3/4">
+              <FaPhone className="text-gray-500 mr-3" />
+              <input
+                type="phone"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
+                placeholder="Enter your phone"
                 required
               />
             </div>

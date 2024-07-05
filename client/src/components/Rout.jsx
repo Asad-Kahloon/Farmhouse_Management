@@ -9,7 +9,12 @@ import Logout from "./Home/Logout";
 
 import Admin from "./Admin/Admin";
 import Register from "./Admin/Register";
+import Profile from "./Admin/Profile";
+
 import Staff from "./Staff/Staff";
+
+import UnauthorizedAccess from "./UnAuthorizedAccess";
+import AdminProtectedRouts from "./AdminProtectedRoutes";
 
 function Rout() {
   return (
@@ -23,9 +28,14 @@ function Rout() {
         </Route>
 
         <Route path="/admin" element={<ProtectedRouts Component={Admin} />}>
-          <Route path="register" element={<Register />}></Route>
+          <Route path="profile" element={<Profile />} />
+          <Route
+            path="register"
+            element={<AdminProtectedRouts Component={Register} />}
+          ></Route>
         </Route>
         <Route path="/staff" element={<Staff />} />
+        <Route path="/unauthorized" element={<UnauthorizedAccess />}></Route>
       </Routes>
     </>
   );

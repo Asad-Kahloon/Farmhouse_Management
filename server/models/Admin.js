@@ -27,6 +27,10 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  phone: {
+    type: String,
+    required: true,
+  },
 });
 
 const adminModel = mongoose.model("Admin", adminSchema);

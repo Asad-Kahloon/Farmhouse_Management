@@ -7,12 +7,9 @@ const RoleCheck = () => {
   useEffect(() => {
     const role = localStorage.getItem("role");
 
-    if (role === "admin") {
-      alert("Admin is logging in");
+    if (role === "admin" || role === "staff member") {
+      alert("logging in");
       navigate("/admin");
-    } else if (role === "staff") {
-      alert("Staff member is logging in");
-      navigate("/staff");
     } else {
       console.error("No valid role found in local storage");
     }

@@ -24,7 +24,7 @@ const router = express.Router();
 
 router.post("/register", upload.single("photo"), async (req, res) => {
   try {
-    const { name, cnic, email, password, gender } = req.body;
+    const { name, cnic, email, password, gender, phone } = req.body;
     const photo = req.file; // Uploaded image file
     const aname = await Admin.findOne({ $or: [{ cnic }, { email }] });
     if (aname) {
@@ -47,8 +47,9 @@ router.post("/register", upload.single("photo"), async (req, res) => {
         gender,
         cnic,
         email,
+        phone,
         password: hashPassword,
-        role: "staff",
+        role: "staff member",
         photo: photo.filename,
       });
       await newAdmin.save();

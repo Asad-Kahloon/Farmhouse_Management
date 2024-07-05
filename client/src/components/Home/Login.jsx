@@ -21,6 +21,10 @@ const Login = () => {
           localStorage.setItem("email", `${email}`);
           localStorage.setItem("login", true);
           localStorage.setItem("role", `${res.data.role}`);
+          localStorage.setItem("cnic", `${res.data.cnic}`);
+          localStorage.setItem("photo", `${res.data.photo}`);
+          localStorage.setItem("name", `${res.data.name}`);
+          localStorage.setItem("phone", `${res.data.phone}`);
 
           alert(res.data.message);
           navigate("/authentication");

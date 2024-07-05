@@ -16,6 +16,7 @@ async function AdminAccount() {
         role: "admin",
         photo: "asad.jpeg",
         email: "asadkahloon77@gmail.com",
+        phone: "+923314163905",
       });
       await newAdmin.save();
       console.log("Admin Created");

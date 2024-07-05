@@ -23,13 +23,20 @@ router.post("/login", async (req, res) => {
       return res.json({ login: false, message: "Incorrect Password" });
     } else {
       const token = jwt.sign(
-        { email: admin.email, role: admin.role },
+        {
+          email: admin.email,
+          role: admin.role,
+        },
         process.env.Admin_Key
       );
       res.cookie("token", token, { httpOnly: true, secure: true });
       return res.json({
         login: true,
+        name: admin.name,
         role: admin.role,
+        cnic: admin.cnic,
+        photo: admin.photo,
+        phone: admin.phone,
         token,
         message: "Login Successful",
       });

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FaHome, FaUser, FaCog, FaBars, FaTimes } from "react-icons/fa";
+import { FaUsers, FaUser, FaCog, FaBars, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -23,12 +24,12 @@ const Sidebar = () => {
           </button>
         </div>
         <nav className="flex flex-col p-4 space-y-2">
-          <a
-            href="/"
+          <Link
+            to="staff"
             className="flex items-center p-2 text-white hover:bg-gray-500 rounded-md"
           >
-            <FaHome className="mr-2" /> Home
-          </a>
+            <FaUsers className="mr-2" /> Staff
+          </Link>
           <a
             href="/profile"
             className="flex items-center p-2 text-white  hover:bg-gray-500 rounded-md"
