@@ -22,7 +22,7 @@ router.get("/viewStaff", async (req, res) => {
   }
 });
 
-router.get("/viewMember:id", async (req, res) => {
+router.get("/member:id", async (req, res) => {
   try {
     const id = req.params.id;
     const member = await Admin.findOne(id);
