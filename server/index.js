@@ -7,6 +7,7 @@ import "./db.js";
 
 import { AuthRouter } from "./routes/auth.js";
 import { AdminRouter } from "./routes/admin.js";
+import { ViewRouter } from "./routes/view.js";
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use("/public", express.static(publicPath));
 
 app.use("/auth", AuthRouter);
 app.use("/admin", AdminRouter);
+app.use("/view", ViewRouter);
 
 dotenv.config();
 

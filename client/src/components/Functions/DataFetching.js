@@ -1,3 +1,5 @@
+import axios from "axios";
+
 // Fetching logged in user details for navbar
 
 export const fetchLoggedInUser = () => {
@@ -36,5 +38,17 @@ export const fetchLoggedInUser = () => {
       name: null,
       photo: null,
     };
+  }
+};
+
+// Fetching Staff Members Details
+
+export const fetchStaffMembers = async () => {
+  try {
+    const response = await axios.get("http://localhost:5000/view/viewStaff");
+    return response.data.members;
+  } catch (error) {
+    console.error("Error fetching staff members", error);
+    throw error;
   }
 };
