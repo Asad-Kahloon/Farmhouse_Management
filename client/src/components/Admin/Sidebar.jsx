@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaUsers, FaUser, FaCog, FaBars, FaTimes } from "react-icons/fa";
+import { FaUsers, FaUserPlus, FaCog, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -30,12 +30,12 @@ const Sidebar = () => {
           >
             <FaUsers className="mr-2" /> Staff
           </Link>
-          <a
-            href="/profile"
+          <Link
+            to="register"
             className="flex items-center p-2 text-white  hover:bg-gray-500 rounded-md"
           >
-            <FaUser className="mr-2" /> Profile
-          </a>
+            <FaUserPlus className="mr-2" /> Register Staff
+          </Link>
           <a
             href="/settings"
             className="flex items-center p-2 text-white  hover:bg-gray-500 rounded-md"
