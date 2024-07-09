@@ -11,6 +11,8 @@ import Admin from "./Admin/Admin";
 import Register from "./Admin/Register";
 import Profile from "./Admin/Profile";
 import ViewStaff from "./Admin/Staff/ViewStaff";
+import DeleteMember from "./Functions/Delete/MemberDelete";
+import UpdateMember from "./Functions/Update/UpdateMember";
 import AdminProtectedRouts from "./AdminProtectedRoutes";
 
 import UnauthorizedAccess from "./UnAuthorizedAccess";
@@ -29,6 +31,8 @@ function Rout() {
         <Route path="/admin" element={<ProtectedRouts Component={Admin} />}>
           <Route path="profile" element={<Profile />} />
           <Route path="staff" element={<ViewStaff />} />
+          <Route path="staff/deleteMember/:id" element={<DeleteMember />} />
+          <Route path="staff/updateMember/:id" element={<UpdateMember />} />
           <Route
             path="register"
             element={<AdminProtectedRouts Component={Register} />}

@@ -52,3 +52,16 @@ export const fetchStaffMembers = async () => {
     throw error;
   }
 };
+
+// Fetching Single Member Details
+export const fetchMemberDetails = async (memberId) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:5000/view/member/${memberId}`
+    );
+    return response.data.member;
+  } catch (error) {
+    console.error("Error fetching member details", error);
+    throw error;
+  }
+};

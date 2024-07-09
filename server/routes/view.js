@@ -22,4 +22,17 @@ router.get("/viewStaff", async (req, res) => {
   }
 });
 
+router.get("/viewMember:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const member = await Admin.findOne(id);
+    return res.json({ member });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while fetching staff members." });
+  }
+});
+
 export { router as ViewRouter };
