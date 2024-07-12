@@ -1,46 +1,34 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchMemberDetails } from "../../Functions/DataFetching";
-import { MemberUpdate } from "./Update";
+import axios from "axios";
 import {
   FaUser,
   FaEnvelope,
   FaIdCard,
-  FaLock,
   FaVenusMars,
-  FaCamera,
   FaPhone,
 } from "react-icons/fa";
 import InputMask from "react-input-mask";
 
 const UpdateMember = () => {
   const { id } = useParams(); // Get the id parameter from URL
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    cnic: "",
-    password: "",
-    confirmPassword: "",
-    gender: "",
-    photo: null,
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [cnic, setCnic] = useState("");
+  const [gender, setGender] = useState("");
+  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     const getMemberDetails = async () => {
       try {
-        const member = await fetchMemberDetails(id); // Pass the id to fetch details
-        setFormData({
-          name: member.name,
-          phone: member.phone,
-          email: member.email,
-          cnic: member.cnic,
-          gender: member.gender,
-          // Assuming other fields like password and photo are fetched or can be updated separately
-        });
+        const res = await axios.get(`http://localhost:5000/view/member/${id}`);
+        setName(res.data.name);
+        setEmail(res.data.email);
+        setGender(res.data.gender);
+        setCnic(res.data.cnic);
+        setPhone(res.data.phone);
       } catch (error) {
         console.error("Error fetching member details:", error);
-        // Handle error (e.g., show error message)
       }
     };
 
@@ -48,22 +36,47 @@ const UpdateMember = () => {
   }, [id]);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
+    const { name, value } = e.target;
+    switch (name) {
+      case "name":
+        setName(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      case "cnic":
+        setCnic(value);
+        break;
+      case "gender":
+        setGender(value);
+        break;
+      case "phone":
+        setPhone(value);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await MemberUpdate(id, formData); // Pass id and formData to update details
-      // Handle successful update (e.g., show success message)
+      await axios
+        .put(`http://localhost:5000/update/member/${id}`, {
+          name,
+          email,
+          cnic,
+          gender,
+          phone,
+        })
+        .then((res) => {
+          if (res.updated) {
+            alert("Member details updated successfully");
+          }
+        });
     } catch (error) {
       console.error("Error updating member details:", error);
-      // Handle error (e.g., show error message)
+      alert("Failed to update member details");
     }
   };
 
@@ -82,7 +95,7 @@ const UpdateMember = () => {
                 type="text"
                 id="name"
                 name="name"
-                value={formData.name}
+                value={name}
                 onChange={handleChange}
                 className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
                 placeholder="Enter your name"
@@ -100,7 +113,7 @@ const UpdateMember = () => {
                 type="email"
                 id="email"
                 name="email"
-                value={formData.email}
+                value={email}
                 onChange={handleChange}
                 className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
                 placeholder="Enter your email"
@@ -118,7 +131,7 @@ const UpdateMember = () => {
                 type="phone"
                 id="phone"
                 name="phone"
-                value={formData.phone}
+                value={phone}
                 onChange={handleChange}
                 className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
                 placeholder="Enter your phone"
@@ -134,7 +147,7 @@ const UpdateMember = () => {
               <FaIdCard className="text-gray-500 mr-3" />
               <InputMask
                 mask="99999-9999999-9"
-                value={formData.cnic}
+                value={cnic}
                 onChange={handleChange}
                 className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
               >
@@ -151,45 +164,7 @@ const UpdateMember = () => {
               </InputMask>
             </div>
           </div>
-          <div className="mb-4 flex items-center">
-            <label htmlFor="password" className="block text-gray-700 w-1/4">
-              Password
-            </label>
-            <div className="flex items-center border-b-2 border-gray-300 py-2 w-3/4">
-              <FaLock className="text-gray-500 mr-3" />
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
-                placeholder="Enter your password"
-                required
-              />
-            </div>
-          </div>
-          <div className="mb-4 flex items-center">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-gray-700 w-1/4"
-            >
-              Confirm Password
-            </label>
-            <div className="flex items-center border-b-2 border-gray-300 py-2 w-3/4">
-              <FaLock className="text-gray-500 mr-3" />
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
-                placeholder="Confirm your password"
-                required
-              />
-            </div>
-          </div>
+
           <div className="mb-4 flex items-center">
             <label htmlFor="gender" className="block text-gray-700 w-1/4">
               Gender
@@ -199,7 +174,7 @@ const UpdateMember = () => {
               <select
                 id="gender"
                 name="gender"
-                value={formData.gender}
+                value={gender}
                 onChange={handleChange}
                 className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
                 required
@@ -211,23 +186,6 @@ const UpdateMember = () => {
                 <option value="female">Female</option>
                 <option value="other">Other</option>
               </select>
-            </div>
-          </div>
-          <div className="mb-6 flex items-center">
-            <label htmlFor="photo" className="block text-gray-700 w-1/4">
-              Photo
-            </label>
-            <div className="flex items-center border-b-2 border-gray-300 py-2 w-3/4">
-              <FaCamera className="text-gray-500 mr-3" />
-              <input
-                type="file"
-                id="photo"
-                name="photo"
-                accept="image/*"
-                onChange={handleChange}
-                className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none"
-                required
-              />
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ import { AuthRouter } from "./routes/auth.js";
 import { AdminRouter } from "./routes/admin.js";
 import { ViewRouter } from "./routes/view.js";
 import { DeleteRouter } from "./routes/delete.js";
+import { UpdateRouter } from "./routes/update.js";
 
 const app = express();
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use("/auth", AuthRouter);
 app.use("/admin", AdminRouter);
 app.use("/view", ViewRouter);
 app.use("/delete", DeleteRouter);
+app.use("/update", UpdateRouter);
 
 dotenv.config();
 

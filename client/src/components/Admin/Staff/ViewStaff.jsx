@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import {
   FaEnvelope,
   FaIdCard,
@@ -46,7 +45,7 @@ function ViewStaff() {
                 <img
                   className="h-32 w-32 rounded-full object-cover mb-2"
                   src={`http://localhost:5000/public/admins/${
-                    user.photo || `default-photo-url.jpg`
+                    user.photo || `unknown.jpeg`
                   }`}
                   alt="Profile"
                 />
@@ -60,7 +59,7 @@ function ViewStaff() {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-center  ">
+              <div className="flex justify-center">
                 <div className="p-6 flex flex-col lg:items-start lg:border-l lg:border-gray-200">
                   <div className="flex items-center mb-3">
                     <FaIdCard className="text-gray-500 mr-3" />
@@ -77,20 +76,20 @@ function ViewStaff() {
                 </div>
               </div>
 
-              <div className="flex justify-center w-[30vw] ">
+              <div className="flex justify-center w-[30vw]">
                 <div className="p-6 flex gap-2 md:flex-col lg:items-center justify-center lg:border-l lg:border-gray-200">
                   <Link
                     to={`updateMember/${user._id}`}
                     className="bg-green-500 text-white font-bold mx-auto p-3 flex items-center mb-3"
                   >
-                    <FaEdit className=" mr-3" />
+                    <FaEdit className="mr-3" />
                     <span>Edit</span>
                   </Link>
                   <Link
                     to={`deleteMember/${user._id}`}
                     className="bg-red-500 text-white font-bold p-3 flex items-center mb-3"
                   >
-                    <FaTrash className=" mr-3" />
+                    <FaTrash className="mr-3" />
                     <span>Delete</span>
                   </Link>
                 </div>

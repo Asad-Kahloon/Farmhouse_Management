@@ -1,6 +1,6 @@
 const Home_Page = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center md:items-start p-4">
+    <div className="mt-[8vh] md:mt-[15vh] flex flex-col md:flex-row items-center md:items-start p-4">
       {/* Image Container */}
       <div className="w-full flex justify-center md:w-1/1 p-4">
         <img
