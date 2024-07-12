@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   FaUser,
@@ -18,6 +18,7 @@ const UpdateMember = () => {
   const [gender, setGender] = useState("");
   const [phone, setPhone] = useState("");
 
+  const navigate = useNavigate();
   useEffect(() => {
     const getMemberDetails = async () => {
       try {
@@ -70,8 +71,9 @@ const UpdateMember = () => {
           phone,
         })
         .then((res) => {
-          if (res.updated) {
+          if (res.data.updated) {
             alert("Member details updated successfully");
+            navigate("/admin/staff");
           }
         });
     } catch (error) {

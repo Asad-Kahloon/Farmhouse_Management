@@ -21,6 +21,7 @@ export const StaffRegister = (formData) => {
       .then((res) => {
         if (res.data.admin_registered) {
           alert("Staff Member registered successfully");
+          return true;
         } else if (res.data.cnic || res.data.email) {
           alert(res.data.message);
         }

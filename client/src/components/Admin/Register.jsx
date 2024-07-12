@@ -11,8 +11,10 @@ import {
   FaPhone,
 } from "react-icons/fa";
 import InputMask from "react-input-mask";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -33,9 +35,12 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    StaffRegister(formData);
+    await StaffRegister(formData);
+    if (StaffRegister) {
+      navigate("/admin/staff");
+    }
   };
 
   return (

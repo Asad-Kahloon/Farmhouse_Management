@@ -22,16 +22,23 @@ router.get("/viewStaff", async (req, res) => {
   }
 });
 
-router.get("/member:id", async (req, res) => {
+router.get("/member/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const member = await Admin.findOne(id);
-    return res.json({ member });
+    const member = await Admin.findOne({ _id: id });
+
+    if (!member) {
+      return res.status(404).json({ error: "Member not found." });
+    }
+
+    const { name, email, cnic, gender, phone } = member;
+
+    return res.json({ name, email, cnic, gender, phone });
   } catch (error) {
     console.error(error);
     return res
       .status(500)
-      .json({ error: "An error occurred while fetching staff members." });
+      .json({ error: "An error occurred while fetching the member." });
   }
 });
 

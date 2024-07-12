@@ -20,21 +20,29 @@ const upload = multer({ storage });
 
 const router = express.Router();
 
-// staff member registration
+//  member details update
 
-router.put("/member:id", upload.single("photo"), async (req, res) => {
+router.put("/member/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const { name, cnic, email, password, gender, phone } = req.body;
-    const photo = req.file; // Uploaded image file
-    const hashPassword = await bcrypt.hash(password, 10);
+    const { name, cnic, email, gender, phone } = req.body;
+
     const member = await Admin.findByIdAndUpdate(
-      { _id: id },
-      { name, gender, cnic, password: hashPassword, email, phone, photo }
+      id,
+      { name, gender, cnic, email, phone },
+      { new: true }
     );
+
+    if (!member) {
+      return res.status(404).json({ error: "Member not found." });
+    }
+
     return res.json({ updated: true });
   } catch (error) {
-    return res.json(error);
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while updating the member." });
   }
 });
 
